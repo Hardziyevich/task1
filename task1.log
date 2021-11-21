@@ -1,0 +1,79 @@
+[2021-11-20 00:26:17,980] WARN [by.my.validator.ParserTxt: 22] Something wrong {}
+by.my.exeption.SomeException
+	at by.my.validator.Validator.get(Validator.java:33)
+	at by.my.validator.ValidatorTxt.builder(ValidatorTxt.java:24)
+	at by.my.Main.main(Main.java:18)
+	Suppressed: java.lang.IllegalStateException: It`s not txt
+		at by.my.validator.Validator.validate(Validator.java:24)
+		at by.my.validator.ValidatorTxt.builder(ValidatorTxt.java:22)
+		... 1 more
+	Suppressed: java.lang.IllegalStateException: It`s not exist
+		at by.my.validator.Validator.validate(Validator.java:24)
+		at by.my.validator.ValidatorTxt.builder(ValidatorTxt.java:23)
+		... 1 more
+[2021-11-20 00:31:52,309] WARN [by.my.validator.ParserTxt: 22] Something wrong {}
+by.my.exeption.SomeException
+	at by.my.validator.Validator.get(Validator.java:33)
+	at by.my.validator.ValidatorTxt.builder(ValidatorTxt.java:24)
+	at by.my.Main.main(Main.java:18)
+	Suppressed: java.lang.IllegalStateException: It`s not txt
+		at by.my.validator.Validator.validate(Validator.java:24)
+		at by.my.validator.ValidatorTxt.builder(ValidatorTxt.java:22)
+		... 1 more
+	Suppressed: java.lang.IllegalStateException: It doesn`t exist
+		at by.my.validator.Validator.validate(Validator.java:24)
+		at by.my.validator.ValidatorTxt.builder(ValidatorTxt.java:23)
+		... 1 more
+[2021-11-20 00:32:23,827] WARN [by.my.validator.ParserTxt: 22] Something wrong {}
+by.my.exeption.SomeException
+	at by.my.validator.Validator.get(Validator.java:33)
+	at by.my.validator.ValidatorTxt.builder(ValidatorTxt.java:24)
+	at by.my.Main.main(Main.java:18)
+	Suppressed: java.lang.IllegalStateException: It`s not txt
+		at by.my.validator.Validator.validate(Validator.java:24)
+		at by.my.validator.ValidatorTxt.builder(ValidatorTxt.java:22)
+		... 1 more
+[2021-11-20 00:33:08,273] WARN [by.my.validator.ParserTxt: 22] Something wrong {}
+by.my.exeption.SomeException
+	at by.my.validator.Validator.get(Validator.java:33)
+	at by.my.validator.ValidatorTxt.builder(ValidatorTxt.java:24)
+	at by.my.Main.main(Main.java:18)
+	Suppressed: java.lang.IllegalStateException: It`s not txt
+		at by.my.validator.Validator.validate(Validator.java:24)
+		at by.my.validator.ValidatorTxt.builder(ValidatorTxt.java:22)
+		... 1 more
+[2021-11-20 00:34:59,080] WARN [by.my.validator.ParserTxt: 22] Something wrong {}
+by.my.exeption.SomeException
+	at by.my.validator.Validator.get(Validator.java:33)
+	at by.my.validator.ValidatorTxt.builder(ValidatorTxt.java:24)
+	at by.my.Main.main(Main.java:18)
+	Suppressed: java.lang.IllegalStateException: It`s not txt
+		at by.my.validator.Validator.validate(Validator.java:24)
+		at by.my.validator.ValidatorTxt.builder(ValidatorTxt.java:22)
+		... 1 more
+[2021-11-21 19:24:31,561] WARN [by.my.Main: 43] Something wrong {}
+by.my.exeption.SomeException
+	at by.my.validator.Validator.get(Validator.java:37)
+	at by.my.validator.ValidatorTxt.builder(ValidatorTxt.java:24)
+	at by.my.Main.main(Main.java:24)
+	Suppressed: by.my.exeption.SomeException: It`s not txt
+		at by.my.validator.Validator.validate(Validator.java:29)
+		at by.my.validator.ValidatorTxt.builder(ValidatorTxt.java:22)
+		... 1 more
+	Suppressed: by.my.exeption.SomeException: It doesn`t exist
+		at by.my.validator.Validator.validate(Validator.java:29)
+		at by.my.validator.ValidatorTxt.builder(ValidatorTxt.java:23)
+		... 1 more
+[2021-11-21 19:25:04,670] WARN [by.my.Main: 43] Something wrong:
+by.my.exeption.SomeException
+	at by.my.validator.Validator.get(Validator.java:37)
+	at by.my.validator.ValidatorTxt.builder(ValidatorTxt.java:24)
+	at by.my.Main.main(Main.java:24)
+	Suppressed: by.my.exeption.SomeException: It`s not txt
+		at by.my.validator.Validator.validate(Validator.java:29)
+		at by.my.validator.ValidatorTxt.builder(ValidatorTxt.java:22)
+		... 1 more
+	Suppressed: by.my.exeption.SomeException: It doesn`t exist
+		at by.my.validator.Validator.validate(Validator.java:29)
+		at by.my.validator.ValidatorTxt.builder(ValidatorTxt.java:23)
+		... 1 more
