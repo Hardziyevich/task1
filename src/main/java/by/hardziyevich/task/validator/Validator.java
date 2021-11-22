@@ -1,6 +1,8 @@
-package by.my.validator;
+package by.hardziyevich.task.validator;
 
-import by.my.exeption.SomeException;
+import by.hardziyevich.task.exeption.SomeException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Collection;
 import java.util.LinkedList;
@@ -14,6 +16,7 @@ import java.util.function.Predicate;
  */
 public class Validator<T> {
 
+    private static final Logger log = LoggerFactory.getLogger(Validator.class);
     private final T object;
     private final Collection<Throwable> exceptions = new LinkedList<>();
 
@@ -32,6 +35,7 @@ public class Validator<T> {
     }
     public T get() throws SomeException {
         if (exceptions.isEmpty()) {
+            log.info("{} is correct",object);
             return object;
         }
         final var exception = new SomeException();

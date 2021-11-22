@@ -1,11 +1,9 @@
-package by.my.entity;
-
-import java.util.Objects;
+package by.hardziyevich.task.entity;
 
 public class Point {
-    private double x;
-    private double y;
-    private double z;
+    private final double x;
+    private final double y;
+    private final double z;
 
     public Point(double x, double y, double z) {
         this.x = x;
@@ -35,15 +33,21 @@ public class Point {
 
     @Override
     public int hashCode() {
-        return Objects.hash(x, y, z);
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + Double.hashCode(x);
+        result = prime * result + Double.hashCode(y);
+        result = prime * result + Double.hashCode(z);
+        return result;
     }
 
     @Override
     public String toString() {
-        return "Point{" +
-                "x=" + x +
-                ", y=" + y +
-                ", z=" + z +
-                '}';
+        final StringBuilder sb = new StringBuilder("Point{");
+        sb.append("x=").append(x);
+        sb.append(", y=").append(y);
+        sb.append(", z=").append(z);
+        sb.append("}");
+        return sb.toString();
     }
 }

@@ -1,7 +1,8 @@
-package by.my.validator;
+package by.hardziyevich.task.parser;
 
-import by.my.entity.Point;
-import by.my.exeption.SomeException;
+import by.hardziyevich.task.entity.Point;
+import by.hardziyevich.task.exeption.SomeException;
+import by.hardziyevich.task.validator.ValidatorTxt;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -17,12 +18,12 @@ public class ParserTxt {
     private static final String REG_COORDINATE = "(\\d[.]\\d+\\s){2}(\\d[.]\\d+)";
     private final Path path;
 
-    public ParserTxt(Path path) {
-        this.path = path;
+    public ParserTxt(Path path) throws SomeException {
+        this.path = new ValidatorTxt(path).checkTxt();
     }
 
     //Method is working and checks the correctness of the data
-    public List<String> checker() throws SomeException {
+    private List<String> checker() throws SomeException {
         return readerFromTxt().stream()
                 .filter(x -> x.matches(REG_COORDINATE))
                 .collect(Collectors.toList());
@@ -40,19 +41,11 @@ public class ParserTxt {
     }
 
     //Creat list of Point. All strings must be the correctness.
-    private List<Point> mapper() throws SomeException {
+    public List<Point> getPoints() throws SomeException {
         return checker().stream()
                 .map(x -> {
                     String[] s = x.split("\\s");
                     return new Point(Double.parseDouble(s[0]), Double.parseDouble(s[1]), Double.parseDouble(s[2]));})
                 .collect(Collectors.toList());
-    }
-
-    public Map<String,List<Point>> builder() throws SomeException {
-        Map<String,List<Point>> data = new HashMap<>();
-        List<Point> list = mapper();
-        data.put("Tetrahedron",list.subList(0,4));
-        data.put("Plane",list.subList(4,list.size()));
-        return data;
     }
 }
