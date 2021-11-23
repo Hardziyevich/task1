@@ -28,8 +28,10 @@ public class ShapeObserver implements Observer {
             int tetrahedronId = shape.getId();
             TetrahedronServiceImpl tetrahedronService = new TetrahedronServiceImpl();
             Warehouse warehouse = repositoryImpl.selectId(tetrahedronId);
+            double areaTetrahedron = tetrahedronService.areaTetrahedron(shape);
+            double volumeTetrahedron = tetrahedronService.volumeTetrahedron(shape);
             if (warehouse == null) {
-                warehouse = Warehouse.getInstance();
+                warehouse = new Warehouse(areaTetrahedron, volumeTetrahedron);
             }
             warehouse.setAreaTetrahedron(tetrahedronService.areaTetrahedron(shape));
             warehouse.setVolumeTetrahedron(tetrahedronService.volumeTetrahedron(shape));
