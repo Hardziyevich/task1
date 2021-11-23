@@ -1,16 +1,16 @@
 package by.hardziyevich.task.repository.impl;
 
 import by.hardziyevich.task.repository.Repository;
+import by.hardziyevich.task.repository.Specification;
 import by.hardziyevich.task.warehouse.Warehouse;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class RepositoryImpl implements Repository {
 
-    private final List<Warehouse> warehouses = new ArrayList<>();
+    private Map<Integer,Warehouse> warehouses = new HashMap<>();
     private static RepositoryImpl repositoryImpl;
 
     private RepositoryImpl() {
@@ -25,17 +25,12 @@ public class RepositoryImpl implements Repository {
 
     @Override
     public boolean contains(Warehouse warehouse) {
-        return warehouses.contains(warehouse);
+        return warehouses.containsValue(warehouse);
     }
 
     @Override
     public Warehouse insertId(int id, Warehouse warehouse) {
-        return warehouses.set(id, warehouse);
-    }
-
-    @Override
-    public boolean remove(Warehouse warehouse) {
-        return warehouses.remove(warehouse);
+        return warehouses.put(id,warehouse);
     }
 
     @Override
@@ -49,7 +44,9 @@ public class RepositoryImpl implements Repository {
     }
 
     @Override
-    public List<Warehouse> select(Predicate<Warehouse> predicate) {
-        return warehouses.stream().filter(predicate).collect(Collectors.toList());
+    public List<Warehouse> select(Specification specification) {
+        return warehouses.entrySet().stream()
+                .map(Map.Entry::getValue)
+                .collect(Collectors.toList());
     }
 }

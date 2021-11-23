@@ -31,10 +31,11 @@ public class ShapeObserver implements Observer {
             double areaTetrahedron = tetrahedronService.areaTetrahedron(shape);
             double volumeTetrahedron = tetrahedronService.volumeTetrahedron(shape);
             if (warehouse == null) {
-                warehouse = new Warehouse(areaTetrahedron, volumeTetrahedron);
+                warehouse = new Warehouse(areaTetrahedron, volumeTetrahedron,shape.getCoordinates());
             }
             warehouse.setAreaTetrahedron(tetrahedronService.areaTetrahedron(shape));
             warehouse.setVolumeTetrahedron(tetrahedronService.volumeTetrahedron(shape));
+            repositoryImpl.insertId(tetrahedronId,warehouse);
         }
     }
 }
