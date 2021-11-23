@@ -9,14 +9,16 @@ public class ShapeService {
     /**
      * The method checks if our point will fit the segment between points p1 and p2.
      * length(p1,p2) == length(p1,p3) + length(p2,p3)
+     *
      * @param p1 point 1
      * @param p2 point 2
      * @param p3 point between p1 and p2
      * @return true - point between p1 and p2, false - isn`t
      */
-    public static boolean checkPointBelong(Point p1, Point p2, Point p3){
-        return Double.compare(rounding(lengthSide(p1, p2),1),rounding(lengthSide(p1,p3)+lengthSide(p2,p3),1)) == 0;
+    public static boolean checkPointBelong(Point p1, Point p2, Point p3) {
+        return Double.compare(rounding(lengthSide(p1, p2), 1), rounding(lengthSide(p1, p3) + lengthSide(p2, p3), 1)) == 0;
     }
+
     /**
      * Calculate length between two point
      *
@@ -28,7 +30,7 @@ public class ShapeService {
         double result = Math.sqrt(powDifNum(p1.getX(), p2.getX()) +
                 powDifNum(p1.getY(), p2.getY()) +
                 powDifNum(p1.getZ(), p2.getZ()));
-        return rounding(result,2);
+        return rounding(result, 2);
     }
 
     /**
@@ -40,17 +42,17 @@ public class ShapeService {
      */
     public static Double powDifNum(double x, double y) {
         double result = Math.pow((x - y), 2);
-        return rounding(result,2);
+        return rounding(result, 2);
     }
 
     /**
      * Method round to different number decimal places
      *
-     * @param d input variable
+     * @param d        input variable
      * @param accuracy input variable accuracy
      * @return rounding variable
      */
-    public static Double rounding(double d, int accuracy){
+    public static Double rounding(double d, int accuracy) {
         StringBuilder strings = new StringBuilder("#.");
         for (int i = 0; i < accuracy; i++) {
             strings.append("#");

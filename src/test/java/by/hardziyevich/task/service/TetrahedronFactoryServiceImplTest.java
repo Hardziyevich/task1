@@ -2,7 +2,7 @@ package by.hardziyevich.task.service;
 
 import by.hardziyevich.task.entity.Point;
 import by.hardziyevich.task.entity.Shape;
-import by.hardziyevich.task.entity.Tetrahedron;
+import by.hardziyevich.task.factory.TetrahedronFactory;
 import by.hardziyevich.task.exeption.SomeException;
 import by.hardziyevich.task.service.impl.TetrahedronServiceImpl;
 import org.junit.jupiter.api.Test;
@@ -13,15 +13,15 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class TetrahedronServiceImplTest {
+class TetrahedronFactoryServiceImplTest {
     TetrahedronServiceImpl tetrahedronUtility = new TetrahedronServiceImpl();
-    Shape rightTetrahedron = Tetrahedron.newShape(List.of(new Point(0.5, 0.29, 0.82), new Point(1.0, 0.0, 0.0), new Point(0.5, 0.87, 0.0), new Point(0, 0, 0)));
-    Shape notRightTetrahedron = Tetrahedron.newShape(List.of(new Point(1.5, 3.29, 0.82), new Point(1.0, 0.0, 1.0), new Point(0.5, 2.87, 0.0), new Point(0, 0, 0)));
+    Shape rightTetrahedron = TetrahedronFactory.newShape(List.of(new Point(0.5, 0.29, 0.82), new Point(1.0, 0.0, 0.0), new Point(0.5, 0.87, 0.0), new Point(0, 0, 0)));
+    Shape notRightTetrahedron = TetrahedronFactory.newShape(List.of(new Point(1.5, 3.29, 0.82), new Point(1.0, 0.0, 1.0), new Point(0.5, 2.87, 0.0), new Point(0, 0, 0)));
     List<Point> points = List.of(new Point(0.5, 0.58, 0.4), new Point(0.77, 0.13, 0.37), new Point(0.23, 0.13, 0.37));
-    Shape expectedTetrahedron = Tetrahedron.newShape(List.of(new Point(0.5, 0.58, 0.4), new Point(0.77, 0.13, 0.37), new Point(0.23, 0.13, 0.37), new Point(0.5, 0.29, 0.82)));
+    Shape expectedTetrahedron = TetrahedronFactory.newShape(List.of(new Point(0.5, 0.58, 0.4), new Point(0.77, 0.13, 0.37), new Point(0.23, 0.13, 0.37), new Point(0.5, 0.29, 0.82)));
 
 
-    public TetrahedronServiceImplTest() throws SomeException {
+    public TetrahedronFactoryServiceImplTest() throws SomeException {
     }
 
     @Test

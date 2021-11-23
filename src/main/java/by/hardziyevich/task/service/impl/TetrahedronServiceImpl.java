@@ -2,6 +2,7 @@ package by.hardziyevich.task.service.impl;
 
 import by.hardziyevich.task.entity.*;
 import by.hardziyevich.task.exeption.SomeException;
+import by.hardziyevich.task.factory.TetrahedronFactory;
 import by.hardziyevich.task.service.TetrahedronService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,16 +18,17 @@ public class TetrahedronServiceImpl implements TetrahedronService {
 
     /**
      * Calculating the volume of new shapes
+     *
      * @param tetrahedronOld tetrahedron old
      * @param tetrahedronNew tetrahedron new
      * @return
      */
     @Override
     public Double[] volumeNewShape(Shape tetrahedronOld, Shape tetrahedronNew) {
-        Double volumeTetrahedronNew = rounding(volumeTetrahedron(tetrahedronNew),2);
-        Double volumeTetrahedronOld = rounding(volumeTetrahedron(tetrahedronOld),2);
-        Double volumeUnknownShape = rounding(volumeTetrahedronOld - volumeTetrahedronNew,2);
-        return new Double[]{volumeTetrahedronNew,volumeUnknownShape};
+        Double volumeTetrahedronNew = rounding(volumeTetrahedron(tetrahedronNew), 2);
+        Double volumeTetrahedronOld = rounding(volumeTetrahedron(tetrahedronOld), 2);
+        Double volumeUnknownShape = rounding(volumeTetrahedronOld - volumeTetrahedronNew, 2);
+        return new Double[]{volumeTetrahedronNew, volumeUnknownShape};
     }
 
     /**
@@ -61,7 +63,7 @@ public class TetrahedronServiceImpl implements TetrahedronService {
                 .filter(x -> x.getValue().equals(integer))
                 .map(p -> p.getKey())
                 .reduce((p1, p2) -> p1).get());
-        Shape tetrahedronNew = Tetrahedron.newShape(MayBeTetrahedron);
+        Shape tetrahedronNew = TetrahedronFactory.newShape(MayBeTetrahedron);
         if (isRightTetrahedron(tetrahedronNew)) {
             log.warn("New shape isn`t tetrahedron");
             throw new SomeException("New shape isn`t tetrahedron");

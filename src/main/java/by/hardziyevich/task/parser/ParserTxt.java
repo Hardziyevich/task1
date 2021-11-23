@@ -45,7 +45,8 @@ public class ParserTxt {
         return checker().stream()
                 .map(x -> {
                     String[] s = x.split("\\s");
-                    return new Point(Double.parseDouble(s[0]), Double.parseDouble(s[1]), Double.parseDouble(s[2]));})
+                    return new Point(Double.parseDouble(s[0]), Double.parseDouble(s[1]), Double.parseDouble(s[2]));
+                })
                 .collect(Collectors.toList());
     }
 }

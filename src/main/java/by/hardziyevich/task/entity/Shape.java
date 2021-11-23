@@ -1,13 +1,19 @@
 package by.hardziyevich.task.entity;
 
+import by.hardziyevich.task.observer.Observable;
+import by.hardziyevich.task.observer.Observer;
+import by.hardziyevich.task.observer.ShapeEvent;
+import by.hardziyevich.task.observer.impl.ShapeObserver;
+
 import java.util.List;
 import java.util.Objects;
 
-public class Shape {
+public class Shape implements Observable {
 
     private final int id;
     private final String nameShape;
-    private final List<Point> coordinates;
+    private List<Point> coordinates;
+    private Observer observer;
 
     public Shape(int id, String nameShape, List<Point> coordinates) {
         this.id = id;
@@ -20,12 +26,33 @@ public class Shape {
         return id;
     }
 
-    public String getNameShape() {
-        return nameShape;
+    public void setCoordinates(List<Point> coordinates) {
+        this.coordinates = coordinates;
+        notifyObserver();
     }
 
     public List<Point> getCoordinates() {
         return List.copyOf(coordinates);
+    }
+
+
+    @Override
+    public void registerObserver(Observer o) {
+        observer = o;
+    }
+
+    @Override
+    public void removeObserver(Observer o) {
+        observer = null;
+    }
+
+    @Override
+    public void notifyObserver() {
+        ShapeEvent event = new ShapeEvent(this);
+        if (observer == null) {
+            observer = new ShapeObserver();
+        }
+        observer.update(event);
     }
 
     @Override
@@ -58,8 +85,8 @@ public class Shape {
         sb.append("id= ").append(id);
         sb.append(", nameShape= ").append(nameShape);
         sb.append(", coordinates= ");
-        coordinates.stream().forEach(p -> sb.append(p).append(", "));
-        sb.delete(sb.length() - 2,sb.length());
+        coordinates.forEach(p -> sb.append(p).append(", "));
+        sb.delete(sb.length() - 2, sb.length());
         sb.append("}");
         return sb.toString();
     }
