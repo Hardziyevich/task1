@@ -6,9 +6,11 @@ import java.util.List;
 import java.util.function.Predicate;
 
 public interface Repository {
-    Warehouse insertId(int id, Warehouse warehouse);
-    Warehouse removeId(int index);
-    Warehouse selectId(int index);
+    boolean add(Warehouse warehouse);
+    boolean remove(Warehouse warehouse);
     boolean contains(Warehouse warehouse);
+    Warehouse selectId(int id);
     List<Warehouse> select(Specification specification);
+    List<Warehouse> select(Predicate<Warehouse> predicate);
+    List<Warehouse> allWarehouse();
 }

@@ -20,23 +20,14 @@ class ShapeObserverTest {
     private Shape rightShape = TetrahedronFactory.newShape(points);
     private RepositoryImpl repositoryImpl = RepositoryImpl.getRepository();
     private TetrahedronServiceImpl te = new TetrahedronServiceImpl();
-    Warehouse warehouse = new Warehouse(te.areaTetrahedron(rightShape), te.volumeTetrahedron(rightShape),rightShape.getCoordinates());
+    Warehouse warehouse = new Warehouse(rightShape.getId(),rightShape.getNameShape(),rightShape.getCoordinates(),te.areaTetrahedron(rightShape), te.volumeTetrahedron(rightShape));
 
     ShapeObserverTest() throws SomeException {
     }
 
     @Test
     void testUpdate() {
-        repositoryImpl.insertId(rightShape.getId(), warehouse);
-        ShapeEvent shapeEvent = new ShapeEvent(rightShape);
-        ShapeObserver shapeObserver = new ShapeObserver();
-        shapeObserver.update(shapeEvent);
-        assertEquals(warehouse, repositoryImpl.selectId(rightShape.getId()));
-    }
-
-    @Test
-    void testUpdate1(){
-        repositoryImpl.removeId(rightShape.getId());
+        repositoryImpl.add(warehouse);
         ShapeEvent shapeEvent = new ShapeEvent(rightShape);
         ShapeObserver shapeObserver = new ShapeObserver();
         shapeObserver.update(shapeEvent);

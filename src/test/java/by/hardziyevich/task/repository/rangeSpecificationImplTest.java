@@ -1,9 +1,5 @@
 package by.hardziyevich.task.repository;
-import by.hardziyevich.task.repository.impl.RangeSpecificationImpl;
-import by.hardziyevich.task.warehouse.Warehouse;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 public class rangeSpecificationImplTest {
     @Test

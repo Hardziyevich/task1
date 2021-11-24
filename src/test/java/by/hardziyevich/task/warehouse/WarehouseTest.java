@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class WarehouseTest {
     @Test
     void testWarehouse() {
-        Warehouse warehouseTest = new Warehouse(1, 2, List.of(new Point(1,1,1)));
+        Warehouse warehouseTest = new Warehouse(1, "test",List.of(new Point(1,1,1)),1,1 );
         assertAll(() -> {
             assertEquals(1, warehouseTest.getAreaTetrahedron());
             assertEquals(2, warehouseTest.getVolumeTetrahedron());

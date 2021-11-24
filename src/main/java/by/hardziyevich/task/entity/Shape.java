@@ -26,6 +26,10 @@ public class Shape implements Observable {
         return id;
     }
 
+    public String getNameShape() {
+        return nameShape;
+    }
+
     public void setCoordinates(List<Point> coordinates) {
         this.coordinates = coordinates;
         notifyObserver();

@@ -7,14 +7,34 @@ import java.util.Objects;
 
 public class Warehouse {
 
+    private int id;
+    private String nameShape;
     private List<Point> points;
     private double areaTetrahedron;
     private double volumeTetrahedron;
 
-    public Warehouse(double areaTetrahedron, double volumeTetrahedron, List<Point> points) {
+    public Warehouse(int id, String shapeName, List<Point> points, double areaTetrahedron, double volumeTetrahedron) {
+        this.id = id;
+        this.nameShape = shapeName;
         this.areaTetrahedron = areaTetrahedron;
         this.volumeTetrahedron = volumeTetrahedron;
         this.points = points;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getNameShape() {
+        return nameShape;
+    }
+
+    public void setNameShape(String nameShape) {
+        this.nameShape = nameShape;
     }
 
     public List<Point> getPoints() {
@@ -46,13 +66,15 @@ public class Warehouse {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Warehouse warehouse = (Warehouse) o;
-        return Double.compare(warehouse.areaTetrahedron, areaTetrahedron) == 0 && Double.compare(warehouse.volumeTetrahedron, volumeTetrahedron) == 0 && Objects.equals(points, warehouse.points);
+        return id == warehouse.id && Double.compare(warehouse.areaTetrahedron, areaTetrahedron) == 0 && Double.compare(warehouse.volumeTetrahedron, volumeTetrahedron) == 0 && Objects.equals(nameShape, warehouse.nameShape) && Objects.equals(points, warehouse.points);
     }
 
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
+        result = prime * result + Integer.hashCode(id);
+        result = prime * result + (nameShape == null ? 0 : nameShape.hashCode());
         result = prime * result + Double.hashCode(areaTetrahedron);
         result = prime * result + Double.hashCode(volumeTetrahedron);
         if (points == null) {
@@ -68,7 +90,9 @@ public class Warehouse {
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Warehouse{");
-        sb.append("areaTetrahedron=").append(areaTetrahedron);
+        sb.append("id=").append(id);
+        sb.append(", nameShape=").append(nameShape);
+        sb.append(", areaTetrahedron=").append(areaTetrahedron);
         sb.append(", volumeTetrahedron=").append(volumeTetrahedron);
         sb.append("}");
         points.forEach(p -> sb.append(p).append(", "));

@@ -1,6 +1,8 @@
 package by.hardziyevich.task.entity;
 
-public class Point {
+import static java.lang.Double.*;
+
+public class Point implements Comparable<Point>{
     private final double x;
     private final double y;
     private final double z;
@@ -49,5 +51,16 @@ public class Point {
         sb.append(", z=").append(z);
         sb.append("}");
         return sb.toString();
+    }
+
+    @Override
+    public int compareTo(Point o) {
+        if(compare(this.x,o.x) > 0 && compare(this.y,o.y) > 0 && compare(this.z,o.z) > 0) {
+            return 1;
+        }
+        else if(compare(this.x,o.x) < 0 && compare(this.y,o.y) < 0 && compare(this.z,o.z) < 0) {
+            return -1;
+        }
+        return 0;
     }
 }

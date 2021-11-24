@@ -6,11 +6,10 @@ import by.hardziyevich.task.warehouse.Warehouse;
 
 import java.util.*;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 public class RepositoryImpl implements Repository {
 
-    private Map<Integer,Warehouse> warehouses = new HashMap<>();
+    private List<Warehouse> warehouses = new ArrayList<>();
     private static RepositoryImpl repositoryImpl;
 
     private RepositoryImpl() {
@@ -25,28 +24,36 @@ public class RepositoryImpl implements Repository {
 
     @Override
     public boolean contains(Warehouse warehouse) {
-        return warehouses.containsValue(warehouse);
+        return warehouses.contains(warehouse);
     }
 
     @Override
-    public Warehouse insertId(int id, Warehouse warehouse) {
-        return warehouses.put(id,warehouse);
+    public Warehouse selectId(int id) {
+        return warehouses.stream().filter(w -> w.getId() == id).findFirst().get();
     }
 
     @Override
-    public Warehouse selectId(int index) {
-        return warehouses.get(index);
+    public boolean add(Warehouse warehouse) {
+        return warehouses.add(warehouse);
     }
 
     @Override
-    public Warehouse removeId(int index) {
-        return warehouses.remove(index);
+    public boolean remove(Warehouse warehouse) {
+        return warehouses.remove(warehouses);
     }
 
     @Override
     public List<Warehouse> select(Specification specification) {
-        return warehouses.entrySet().stream()
-                .map(Map.Entry::getValue)
-                .collect(Collectors.toList());
+        return null;
+    }
+
+    @Override
+    public List<Warehouse> select(Predicate<Warehouse> predicate) {
+        return null;
+    }
+
+    @Override
+    public List<Warehouse> allWarehouse() {
+        return List.copyOf(warehouses);
     }
 }
