@@ -2,7 +2,9 @@ package by.hardziyevich.task.repository.impl;
 
 
 import by.hardziyevich.task.entity.Shape;
+import by.hardziyevich.task.exeption.SomeException;
 import by.hardziyevich.task.repository.RepositorySorter;
+import by.hardziyevich.task.validator.Validator;
 
 import java.util.Comparator;
 import java.util.List;
@@ -13,8 +15,8 @@ public class RepositorySorterImpl implements RepositorySorter {
     Comparator<Shape> comparatorFirstPointX = (x, y)-> Double.compare(x.getCoordinates().get(0).getX(),y.getCoordinates().get(0).getX());
     Comparator<Shape> comparatorFirstPointY = (x, y)-> Double.compare(x.getCoordinates().get(0).getY(),y.getCoordinates().get(0).getY());
 
-    public RepositorySorterImpl(List<Shape> shapes){
-        this.shapes = shapes;
+    public RepositorySorterImpl(List<Shape> shapes) throws SomeException {
+        this.shapes = Validator.of(shapes).get();
     }
 
     @Override

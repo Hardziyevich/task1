@@ -11,7 +11,6 @@ import java.util.function.Predicate;
 
 /**
  * Class representing Monad design pattern.
- * Not full correct, but in particular way that enough
  *
  * @param <T>
  */

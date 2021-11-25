@@ -10,8 +10,8 @@ public interface TetrahedronService {
 
     Double areaTetrahedron(Shape tetrahedron);
     Double volumeTetrahedron(Shape tetrahedron);
-    boolean isRightTetrahedron(Shape tetrahedron);
-    boolean isOwnerTetrahedron(Shape tetrahedron, List<Point> points);
+    boolean isRightTetrahedron(Shape tetrahedron) throws SomeException;
+    boolean isOwnerTetrahedron(Shape tetrahedron, List<Point> points) throws SomeException;
     Shape cutTetrahedronByPoint(Shape s1,List<Point> points) throws SomeException;
-    Double[] volumeNewShape(Shape tetrahedronOld,Shape tetrahedronNew);
+    Double[] volumeNewShape(Shape tetrahedronOld,Shape tetrahedronNew) throws SomeException;
 }

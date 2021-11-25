@@ -41,4 +41,9 @@ public class WarehouseImpl implements Warehouse {
     public ShapeParameters updateParameters(int id, ShapeParameters shapeParameters) throws SomeException {
         return parametersWarehouse.putIfAbsent(id,Validator.of(shapeParameters).get());
     }
+
+    @Override
+    public void removeAll() {
+        parametersWarehouse.clear();
+    }
 }

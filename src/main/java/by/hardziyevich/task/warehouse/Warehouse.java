@@ -7,4 +7,5 @@ public interface Warehouse {
     ShapeParameters addParameter(int id, ShapeParameters shapeParameters) throws SomeException;
     ShapeParameters receiveParameter(int id) throws SomeException;
     ShapeParameters updateParameters(int id, ShapeParameters shapeParameters) throws SomeException;
+    void removeAll();
 }

@@ -3,18 +3,20 @@ package by.hardziyevich.task.service.impl;
 import by.hardziyevich.task.entity.*;
 import by.hardziyevich.task.exeption.SomeException;
 import by.hardziyevich.task.factory.TetrahedronFactory;
+import by.hardziyevich.task.service.ShapeService;
 import by.hardziyevich.task.service.TetrahedronService;
+import by.hardziyevich.task.validator.Validator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.*;
 
-import static by.hardziyevich.task.service.ShapeService.*;
 import static java.lang.Double.compare;
 
 public class TetrahedronServiceImpl implements TetrahedronService {
 
     private static final Logger log = LoggerFactory.getLogger(TetrahedronServiceImpl.class);
+    private static final ShapeService SHAPE_SERVICE_IMPL = new ShapeServiceImpl();
 
     /**
      * Calculating the volume of new shapes
@@ -24,10 +26,12 @@ public class TetrahedronServiceImpl implements TetrahedronService {
      * @return
      */
     @Override
-    public Double[] volumeNewShape(Shape tetrahedronOld, Shape tetrahedronNew) {
-        Double volumeTetrahedronNew = rounding(volumeTetrahedron(tetrahedronNew), 2);
-        Double volumeTetrahedronOld = rounding(volumeTetrahedron(tetrahedronOld), 2);
-        Double volumeUnknownShape = rounding(volumeTetrahedronOld - volumeTetrahedronNew, 2);
+    public Double[] volumeNewShape(Shape tetrahedronOld, Shape tetrahedronNew) throws SomeException {
+        tetrahedronOld = Validator.of(tetrahedronOld).get();
+        tetrahedronNew = Validator.of(tetrahedronNew).get();
+        Double volumeTetrahedronNew = SHAPE_SERVICE_IMPL.rounding(volumeTetrahedron(tetrahedronNew), 2);
+        Double volumeTetrahedronOld = SHAPE_SERVICE_IMPL.rounding(volumeTetrahedron(tetrahedronOld), 2);
+        Double volumeUnknownShape = SHAPE_SERVICE_IMPL.rounding(volumeTetrahedronOld - volumeTetrahedronNew, 2);
         return new Double[]{volumeTetrahedronNew, volumeUnknownShape};
     }
 
@@ -41,6 +45,7 @@ public class TetrahedronServiceImpl implements TetrahedronService {
      */
     @Override
     public Shape cutTetrahedronByPoint(Shape s1, List<Point> points) throws SomeException {
+        points = Validator.of(points).get();
         if (!isOwnerTetrahedron(s1, points)) {
             log.warn("The plane that cuts our tetrahedron does not belongs to him");
             throw new SomeException("The plane that cuts our tetrahedron does not belongs to him");
@@ -50,7 +55,7 @@ public class TetrahedronServiceImpl implements TetrahedronService {
         Map<Point, Integer> finder = new HashMap<>();
         for (Point point : points) {
             for (int i = 0; i < sideTetrahedron.length; i++) {
-                if (checkPointBelong(sideTetrahedron[i][0], sideTetrahedron[i][1], point)) {
+                if (SHAPE_SERVICE_IMPL.checkPointBelong(sideTetrahedron[i][0], sideTetrahedron[i][1], point)) {
                     MayBeTetrahedron.add(point);
                     findAndPut(finder, sideTetrahedron[i][0]);
                     findAndPut(finder, sideTetrahedron[i][1]);
@@ -79,12 +84,14 @@ public class TetrahedronServiceImpl implements TetrahedronService {
      * @return true - belong, false - vice versa
      */
     @Override
-    public boolean isOwnerTetrahedron(Shape tetrahedron, List<Point> points) {
+    public boolean isOwnerTetrahedron(Shape tetrahedron, List<Point> points) throws SomeException {
+        tetrahedron = Validator.of(tetrahedron).get();
+        points = Validator.of(points).get();
         Point[][] sideTetrahedron = creatSideTetrahedron(tetrahedron);
         long count = points.stream().filter(x -> {
             boolean state = false;
             for (int i = 0; i < sideTetrahedron.length; i++) {
-                if (checkPointBelong(sideTetrahedron[i][0], sideTetrahedron[i][1], x)) {
+                if (SHAPE_SERVICE_IMPL.checkPointBelong(sideTetrahedron[i][0], sideTetrahedron[i][1], x)) {
                     state = true;
                 }
             }
@@ -94,9 +101,9 @@ public class TetrahedronServiceImpl implements TetrahedronService {
     }
 
     @Override
-    public boolean isRightTetrahedron(Shape tetrahedron) {
-        Point[][] side = creatSideTetrahedron(tetrahedron);
-        double[] doubles = Arrays.stream(side).mapToDouble(p -> lengthSide(p[0], p[1])).toArray();
+    public boolean isRightTetrahedron(Shape tetrahedron) throws SomeException {
+        Point[][] side = creatSideTetrahedron(Validator.of(tetrahedron).get());
+        double[] doubles = Arrays.stream(side).mapToDouble(p -> SHAPE_SERVICE_IMPL.lengthSide(p[0], p[1])).toArray();
         List<Integer> list = new ArrayList<>();
         for (int i = 1; i < doubles.length - 1; i += 2) {
             list.add(compare(doubles[i], doubles[i - 1]));
@@ -114,8 +121,7 @@ public class TetrahedronServiceImpl implements TetrahedronService {
     public Double volumeTetrahedron(Shape tetrahedron) {
         Point p1 = tetrahedron.getCoordinates().get(0);
         Point p2 = tetrahedron.getCoordinates().get(1);
-        Double result = Math.sqrt(2) * Math.pow(lengthSide(p1, p2), 3) / 12;
-        return rounding(result, 2);
+        return SHAPE_SERVICE_IMPL.rounding(Math.sqrt(2) * Math.pow(SHAPE_SERVICE_IMPL.lengthSide(p1, p2), 3) / 12, 2);
     }
 
     /**
@@ -138,8 +144,7 @@ public class TetrahedronServiceImpl implements TetrahedronService {
     private Double areaRegularTriangle(Shape shape) {
         Point p1 = shape.getCoordinates().get(0);
         Point p2 = shape.getCoordinates().get(1);
-        Double result = Math.sqrt(3) * Math.pow(lengthSide(p1, p2), 2) / 4;
-        return rounding(result, 2);
+        return SHAPE_SERVICE_IMPL.rounding(Math.sqrt(3) * Math.pow(SHAPE_SERVICE_IMPL.lengthSide(p1, p2), 2) / 4, 2);
     }
 
     private Point[][] creatSideTetrahedron(Shape tetrahedron) {

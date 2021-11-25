@@ -10,26 +10,33 @@ import by.hardziyevich.task.repository.impl.RepositoryImpl;
 import by.hardziyevich.task.service.impl.TetrahedronServiceImpl;
 import by.hardziyevich.task.warehouse.Warehouse;
 import by.hardziyevich.task.warehouse.impl.WarehouseImpl;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
 
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class ShapeObserverTest {
     private final List<Point> points = List.of(new Point(0.0, 0.0, 0.0), new Point(1.0, 0.0, 0.0), new Point(0.5, 0.87, 0.0), new Point(0.5, 0.29, 0.82));
-    private Shape notRightShape = new Shape(1, "test", List.of(new Point(1, 1, 1)));
     private final Shape rightShape = TetrahedronFactory.newShape(points);
-    private TetrahedronServiceImpl te = new TetrahedronServiceImpl();
+    private final TetrahedronServiceImpl te = new TetrahedronServiceImpl();
     private final Warehouse warehouse = WarehouseImpl.getInstance();
     private final ShapeParameters shapeParameters = new ShapeParameters(te.volumeTetrahedron(rightShape), te.areaTetrahedron(rightShape));
 
-    ShapeObserverTest() throws SomeException {
+
+    ShapeObserverTest() throws SomeException {}
+
+    @BeforeAll
+    void settingWarehouse() throws SomeException {
+        warehouse.addParameter(rightShape.getId(), shapeParameters);
     }
 
     @Test
     void testUpdate() throws SomeException {
-        warehouse.addParameter(rightShape.getId(), shapeParameters);
         ShapeEvent shapeEvent = new ShapeEvent(rightShape);
         ShapeObserver shapeObserver = new ShapeObserver();
         shapeObserver.update(shapeEvent);
@@ -38,5 +45,10 @@ class ShapeObserverTest {
             assertThrows(SomeException.class, () -> warehouse.updateParameters(1,null));
             assertThrows(SomeException.class, () -> warehouse.addParameter(1,null));
         });
+    }
+
+    @AfterAll
+    void clearWarehouse(){
+        warehouse.removeAll();
     }
 }

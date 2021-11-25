@@ -45,7 +45,7 @@ public class Point implements Comparable<Point>{
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("Point{");
+        StringBuilder sb = new StringBuilder("Point{");
         sb.append("x=").append(x);
         sb.append(", y=").append(y);
         sb.append(", z=").append(z);

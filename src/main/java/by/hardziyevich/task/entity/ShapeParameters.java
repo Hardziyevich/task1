@@ -47,7 +47,7 @@ public class ShapeParameters {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("ShapeParameters{");
+        StringBuilder sb = new StringBuilder("ShapeParameters{");
         sb.append("volume=").append(volume);
         sb.append(", area=").append(area);
         sb.append("}");
