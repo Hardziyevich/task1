@@ -3,11 +3,16 @@ package by.hardziyevich.task.validator;
 import by.hardziyevich.task.exeption.SomeException;
 import org.junit.jupiter.api.Test;
 
+import java.io.File;
 import java.nio.file.Path;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ValidatorTxtTest {
+    String resourceName = "1.txt";
+    ClassLoader classLoader = getClass().getClassLoader();
+    File file = new File(classLoader.getResource(resourceName).getFile());
+    String absolutePath = file.getAbsolutePath();
 
     @Test
     void testExceptionBuilder(){
@@ -17,10 +22,9 @@ public class ValidatorTxtTest {
 
     @Test
     void testBuilder() throws SomeException {
-        String filePath = "D:\\TaskForEpam\\task1\\src\\test\\resources\\1.txt";
-        ValidatorTxt validatorTxt = new ValidatorTxt(Path.of(filePath));
+        ValidatorTxt validatorTxt = new ValidatorTxt(Path.of(absolutePath));
         Path builder = null;
         builder = validatorTxt.checkTxt();
-        assertEquals(filePath,builder.toFile().getPath());
+        assertEquals(absolutePath,builder.toFile().getPath());
     }
 }

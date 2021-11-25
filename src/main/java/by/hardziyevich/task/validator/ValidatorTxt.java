@@ -14,12 +14,13 @@ public class ValidatorTxt{
     private final Predicate<Path> checkFormat = x -> x.toFile().getAbsolutePath().endsWith(".txt");
     private final Predicate<Path> checkExist = x -> x.toFile().exists();
 
-    public ValidatorTxt(Path path){
-        this.path = path;
+    public ValidatorTxt(Path path) throws SomeException {
+        this.path = Validator.of(path).get();
     }
 
     public Path checkTxt() throws SomeException {
-        return Validator.of(path).validate(checkFormat,"It`s not txt")
+        return Validator.of(path)
+                .validate(checkFormat,"It`s not txt")
                 .validate(checkExist, "It doesn`t exist")
                 .get();
     }

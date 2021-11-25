@@ -19,14 +19,25 @@ public class Validator<T> {
 
     private static final Logger log = LoggerFactory.getLogger(Validator.class);
     private final T object;
-    private final Collection<Throwable> exceptions = new LinkedList<>();
+    private Collection<Throwable> exceptions = new LinkedList<>();
 
     public Validator(T object) {
         this.object = object;
     }
 
+    public Validator(T object,Collection<Throwable> exceptions) {
+        this.object = object;
+        this.exceptions = exceptions;
+    }
+
     public static <T> Validator<T> of(final T object) {
-        return new Validator<>(Objects.requireNonNull(object));
+        try {
+            return new Validator<>(Objects.requireNonNull(object));
+        }catch (NullPointerException e){
+            Collection<Throwable> exceptions = new LinkedList<>();
+            exceptions.add(new SomeException(e.getMessage()));
+            return new Validator<>(object,exceptions);
+        }
     }
 
     public Validator<T> validate(final Predicate<T> validation, final String message) {

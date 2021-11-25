@@ -1,9 +1,11 @@
 package by.hardziyevich.task.entity;
 
+import by.hardziyevich.task.exeption.SomeException;
 import by.hardziyevich.task.observer.Observable;
 import by.hardziyevich.task.observer.Observer;
 import by.hardziyevich.task.observer.ShapeEvent;
 import by.hardziyevich.task.observer.impl.ShapeObserver;
+import by.hardziyevich.task.validator.Validator;
 
 import java.util.List;
 import java.util.Objects;
@@ -30,8 +32,8 @@ public class Shape implements Observable {
         return nameShape;
     }
 
-    public void setCoordinates(List<Point> coordinates) {
-        this.coordinates = coordinates;
+    public void setCoordinates(List<Point> coordinates) throws SomeException {
+        this.coordinates = Validator.of(coordinates).get();
         notifyObserver();
     }
 
@@ -51,7 +53,7 @@ public class Shape implements Observable {
     }
 
     @Override
-    public void notifyObserver() {
+    public void notifyObserver() throws SomeException {
         ShapeEvent event = new ShapeEvent(this);
         if (observer == null) {
             observer = new ShapeObserver();

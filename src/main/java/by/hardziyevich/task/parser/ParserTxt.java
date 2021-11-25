@@ -16,6 +16,7 @@ import java.util.stream.Stream;
 public class ParserTxt {
 
     private static final String REG_COORDINATE = "(\\d[.]\\d+\\s){2}(\\d[.]\\d+)";
+    private static final String REG_SPLIT = "\\s";
     private final Path path;
 
     public ParserTxt(Path path) throws SomeException {
@@ -44,7 +45,7 @@ public class ParserTxt {
     public List<Point> getPoints() throws SomeException {
         return checker().stream()
                 .map(x -> {
-                    String[] s = x.split("\\s");
+                    String[] s = x.split(REG_SPLIT);
                     return new Point(Double.parseDouble(s[0]), Double.parseDouble(s[1]), Double.parseDouble(s[2]));
                 })
                 .collect(Collectors.toList());

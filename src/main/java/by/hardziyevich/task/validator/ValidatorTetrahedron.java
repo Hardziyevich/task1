@@ -8,12 +8,12 @@ import java.util.function.Predicate;
 
 public class ValidatorTetrahedron {
 
-    private List<Point> object;
+    private final List<Point> object;
     private final Predicate<List<Point>> sizePoint = x -> x.size() == 4;
 
 
-    public ValidatorTetrahedron(List<Point> object) {
-        this.object = object;
+    public ValidatorTetrahedron(List<Point> object) throws SomeException {
+        this.object = Validator.of(object).get();
     }
 
     /**
